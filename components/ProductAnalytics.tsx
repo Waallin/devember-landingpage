@@ -27,7 +27,7 @@ export function ProductAnalytics() {
                 key={paragraph}
                 className={`${index === 0 ? "mt-6" : "mt-[18px]"} mb-0 max-w-[46ch] text-[17px] leading-[1.65] text-pretty text-muted-soft`}
               >
-                {paragraph}
+                {paragraph} 
               </p>
             ))}
             <ol className="mt-8 mb-0 flex list-none flex-wrap items-center gap-x-3.5 gap-y-2 p-0 font-mono text-[13px] font-medium tracking-[0.09em] uppercase">
