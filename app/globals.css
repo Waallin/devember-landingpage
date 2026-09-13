@@ -268,6 +268,15 @@ a.hero-scroll:hover {
   }
 }
 
+@keyframes rise-in-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -292,15 +301,13 @@ a.hero-scroll:hover {
     transform: none;
   }
 
-  .reveal-item,
-  .reveal-group.is-visible .reveal-item {
-    opacity: 1;
-    transform: none;
-    transition: none;
+  .reveal-item {
+    --reveal-from: 0px;
+    transition-duration: 400ms;
   }
 
   .animate-rise-in {
-    animation: none;
+    animation: rise-in-fade 400ms ease both;
   }
 
   .app-media-dim,
@@ -319,13 +326,5 @@ a.hero-scroll:hover {
 
   .hero-cursor-pulse {
     animation: none;
-  }
-
-  .hero-animated {
-    display: none;
-  }
-
-  .hero-static {
-    display: inline-flex;
   }
 }

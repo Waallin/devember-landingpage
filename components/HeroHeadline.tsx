@@ -64,21 +64,8 @@ function Cursor({ ember, pulse }: { ember: boolean; pulse?: boolean }) {
 export function HeroHeadline() {
   const [displayed, setDisplayed] = useState("");
   const [step, setStep] = useState(0);
-  const [reduced, setReduced] = useState<boolean | null>(null);
 
   useEffect(() => {
-    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const sync = () => setReduced(media.matches);
-    sync();
-    media.addEventListener("change", sync);
-    return () => media.removeEventListener("change", sync);
-  }, []);
-
-  useEffect(() => {
-    if (reduced !== false) {
-      return;
-    }
-
     const target = STEPS[step];
 
     if (displayed === target) {
@@ -101,7 +88,7 @@ export function HeroHeadline() {
     }, delay);
 
     return () => window.clearTimeout(timer);
-  }, [displayed, reduced, step]);
+  }, [displayed, step]);
 
   const { prefix, rest } = splitHeadline(displayed);
   const done = displayed === STEPS[STEPS.length - 1];
