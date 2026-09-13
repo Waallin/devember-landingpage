@@ -48,7 +48,7 @@ const hatch: Record<Variant, Record<MediaTone, string>> = {
 const frames: Record<Variant, string> = {
   icon: "size-[68px] rounded-2xl text-[10px] tracking-[0.06em]",
   phone:
-    "aspect-[9/19.5] max-w-[200px] flex-1 rounded-[20px] border border-frame p-2.5 text-[10.5px] leading-[1.6] tracking-[0.05em]",
+    "aspect-[9/19.5] max-w-[200px] flex-1 rounded-[20px] border border-frame text-[10.5px] leading-[1.6] tracking-[0.05em]",
   wide: "min-w-0 flex-1 aspect-video rounded-md p-2.5 text-[10.5px] tracking-[0.06em]",
   dashboard:
     "aspect-[16/10] rounded-md border border-frame-soft p-4 text-[11.5px] leading-[1.6] tracking-[0.05em]",
@@ -64,22 +64,37 @@ const sizes: Record<Variant, string> = {
 export function MediaFrame({
   asset,
   variant,
+  interactiveDim = false,
 }: {
   asset: MediaAsset;
   variant: Variant;
+  interactiveDim?: boolean;
 }) {
+  const filled = Boolean(asset.src);
+  const filledIcon = variant === "icon" && filled;
+  const filledPhone = variant === "phone" && filled;
+  const phonePad = variant === "phone" && !filled ? "p-2.5" : "";
+
   return (
     <div
-      className={`relative flex items-center justify-center overflow-hidden text-center font-mono ${frames[variant]} ${hatch[variant][asset.tone]}`}
+      className={`relative flex items-center justify-center overflow-hidden text-center font-mono ${frames[variant]} ${phonePad} ${filledPhone ? "border-transparent" : ""} ${filledIcon ? "bg-white" : hatch[variant][asset.tone]} ${interactiveDim && filled ? (variant === "icon" ? "app-media-dim-icon" : "app-media-dim") : ""}`}
     >
       {asset.src ? (
-        <Image
-          src={asset.src}
-          alt={asset.alt}
-          fill
-          sizes={sizes[variant]}
-          className="object-cover"
-        />
+        <>
+          <Image
+            src={asset.src}
+            alt={asset.alt}
+            fill
+            sizes={sizes[variant]}
+            className="object-cover"
+          />
+          {variant === "phone" ? (
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgb(25_25_24/0.22)_0%,rgb(25_25_24/0.5)_55%,rgb(25_25_24/0.88)_100%)] shadow-[inset_0_0_28px_12px_#191918]"
+            />
+          ) : null}
+        </>
       ) : (
         <span className="whitespace-pre-line">{asset.label}</span>
       )}

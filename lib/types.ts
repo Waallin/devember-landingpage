@@ -36,3 +36,17 @@ export type NavLink = {
   label: string;
   href: string;
 };
+
+export type AboutPortrait = {
+  src: string;
+  alt: string;
+};
+
+export type AboutContent = {
+  number: string;
+  label: string;
+  title: string;
+  intro: string;
+  paragraphs: string[];
+  portrait?: AboutPortrait;
+};

@@ -1,3 +1,4 @@
+import { EmberText } from "@/components/EmberText";
 import { site } from "@/lib/content";
 
 export function Header() {
@@ -6,9 +7,9 @@ export function Header() {
       <div className="mx-auto flex max-w-[1120px] flex-wrap items-baseline justify-between gap-x-8 gap-y-4 px-6 py-[18px]">
         <a
           href="#top"
-          className="text-base font-semibold tracking-[0.05em] uppercase"
+          className="site-nav-link text-base font-semibold tracking-[0.05em] uppercase"
         >
-          {site.name}
+          <EmberText text={site.name} />
         </a>
         <nav
           aria-label="Primary"
@@ -18,9 +19,9 @@ export function Header() {
             <a
               key={item.href}
               href={item.href}
-              className="border-b border-transparent pb-0.5 hover:border-ember"
+              className="site-nav-link border-b border-transparent pb-0.5 hover:border-ember"
             >
-              {item.label}
+              <EmberText text={item.label} />
             </a>
           ))}
         </nav>
