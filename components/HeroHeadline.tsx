@@ -6,7 +6,7 @@ const PREFIX = "Think";
 const STEPS = ["Think Developer", "Think Dev", "Think Devember."] as const;
 const TYPE_MS = 100;
 const DELETE_MS = 60;
-const HOLD_MS = 2000;
+const HOLD_MS = 500;
 const EMBER_TAIL = "ember.";
 
 function splitHeadline(displayed: string) {
