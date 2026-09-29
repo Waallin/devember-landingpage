@@ -1,14 +1,21 @@
+import Image from "next/image";
+import icon from "@/app/icon.png";
 import { EmberText } from "@/components/EmberText";
 import { site } from "@/lib/content";
 
 export function Header() {
   return (
     <header className="sticky top-0 z-20 border-b border-line bg-black/90 backdrop-blur-[6px]">
-      <div className="mx-auto flex max-w-[1120px] flex-wrap items-baseline justify-between gap-x-8 gap-y-4 px-6 py-[18px]">
+      <div className="mx-auto flex max-w-[1120px] flex-wrap items-center justify-between gap-x-8 gap-y-4 px-6 py-[18px]">
         <a
           href="#top"
-          className="site-nav-link text-base font-semibold tracking-[0.05em] uppercase"
+          className="site-nav-link inline-flex items-center gap-2.5 text-base font-semibold tracking-[0.05em] uppercase"
         >
+          <Image
+            src={icon}
+            alt=""
+            className="size-8"
+          />
           <EmberText text={site.name} />
         </a>
         <nav
