@@ -36,21 +36,16 @@ export function CopyEmailLink({ email }: { email: string }) {
 
   return (
     <div className="relative">
-      <button
-        type="button"
-        onClick={handleCopy}
-        className="motion-link cursor-pointer border-0 border-b border-solid border-november bg-transparent p-0 pb-1.5 text-left font-[inherit] text-[inherit] tracking-[inherit] hover:border-ember hover:text-ember"
-      >
-        Email{" "}
-        <span className="motion-arrow motion-arrow-external">↗</span>
+      <button type="button" onClick={handleCopy} className="btn btn-primary motion-link">
+        Email me <span className="motion-arrow motion-arrow-forward">→</span>
       </button>
       {copied ? (
         <div
           role="status"
           aria-live="polite"
-          className="absolute right-0 bottom-full z-10 mb-2 whitespace-nowrap rounded-md border border-ember bg-frame px-3 py-2 font-mono text-xs tracking-[0.03em]"
+          className="absolute bottom-full left-0 z-10 mb-2 whitespace-nowrap rounded-md border border-ember bg-surface px-3 py-2 font-mono text-xs tracking-[0.03em] shadow-soft"
         >
-          <p className="m-0 text-ember">
+          <p className="m-0 text-ember-ink">
             <EmberText text="Copied to clipboard" />
           </p>
           <p className="m-0 mt-1 text-snow">

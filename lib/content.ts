@@ -13,7 +13,7 @@ import primeIcon from "@/assets/prime/icon.png";
 import primeShot1 from "@/assets/prime/screenshot1.png";
 import primeShot2 from "@/assets/prime/screenshot2.png";
 import primeShot3 from "@/assets/prime/screenshot3.png";
-import type { AboutContent, NavLink, Project, TechGroup } from "./types";
+import type { AboutContent, AnalyticsStep, NavLink, Project, TechGroup } from "./types";
 
 export const site = {
   name: "Devember",
@@ -28,56 +28,67 @@ export const site = {
   ] satisfies NavLink[],
   hero: {
     eyebrow: "Independent software studio",
-    prefix: "I am",
-    words: ["Developer", "Devember"],
     description:
-      "I design, build and ship digital products.\nDevember is my independent software studio.",
+      "I design, build and ship digital products. Devember is my independent studio. I build my own apps, ship them early and learn from how real people use them.",
     primaryCta: { label: "View apps →", href: "#projects" },
-    secondaryCta: { label: "Get in touch", href: "#contact" },
-    scrollLabel: "Scroll",
+    secondaryCta: { label: "Get in touch →", href: "#contact" },
+  },
+  projects: {
+    number: "01",
+    label: "Projects",
+    title: "Things I have built and shipped.",
+    intro: "My own products, from first idea to the App Store.",
   },
   analytics: {
     number: "02",
     label: "Product analytics",
-    title: "Built. Shipped.\nMeasured.",
+    title: "Built. Shipped. Measured.",
     paragraph:
-      "I’d rather ship an MVP and learn from real users than guess what they want. That’s why I add tracking from the start — I want to understand what people actually do in the product and use that to decide what comes next.",
+      "I would rather ship an MVP and learn from real users than guess. Tracking goes in from the start, so the next step rests on real behavior.",
     statement: "Real behavior beats assumptions.",
-    steps: ["Build", "Ship", "Measure", "Learn", "Iterate"],
-    screenshot: {
-      src: mixpanelImage.src,
-      alt: "Mixpanel funnel and retention report from Insynskollen",
-      label: "Mixpanel screenshot\nfunnel / retention report",
-      tone: "neutral" as const,
+    steps: [
+      { label: "Build", text: "The smallest version that is useful." },
+      { label: "Ship", text: "Out to the App Store and Google Play." },
+      { label: "Measure", text: "Track what people actually do." },
+      { label: "Learn", text: "Read funnels and retention." },
+      { label: "Iterate", text: "Change one thing, then build again." },
+    ] satisfies AnalyticsStep[],
+    panel: {
+      label: "Product data · Mixpanel",
+      title: "Measured from day one.",
+      text: "Live funnel and retention data from Insynskollen.",
+      screenshot: {
+        src: mixpanelImage.src,
+        alt: "Mixpanel funnel and retention report from Insynskollen",
+      },
     },
-    annotation: "Live product data / Insynskollen",
   },
   tech: {
     number: "03",
     label: "Tools & technology",
-    intro: "What the products are actually built and run on.",
+    title: "What I build with.",
   },
   about: {
     number: "04",
     label: "About",
     title: "A little about me.",
-    intro: "Hi, I’m Viktor. I started Devember as a place for my own ideas and projects.",
-    paragraphs: [
-      "I enjoy building things and figuring things out along the way. Some ideas stay small, some make it to the App Store, and some turn into products people actually pay for.",
-      "Devember is where I turn ideas into things I can actually use.",
-    ],
+    intro:
+      "I am Viktor. I started Devember for my own ideas. Some projects stay small, some reach the App Store, and some become paid products.",
+    paragraphs: ["Devember is where I turn ideas into things I can use."],
     portrait: {
       src: profilePicture.src,
       alt: "Viktor, the developer behind Devember",
     },
   } satisfies AboutContent as AboutContent,
   footer: {
+    label: "Contact",
     title: "Want to talk?",
-    legal: "Devember AB — Sweden",
+    text: "An idea, a question or something you want built. Send me a line.",
+    legal: "Devember AB · Sweden",
     copyright: "© 2026",
     email: "viktor@devember.se",
     links: [
-      { label: "LinkedIn ↗", href: "https://www.linkedin.com/in/viktor-wallin-2aa173252/?skipRedirect=true" },
+      { label: "LinkedIn →", href: "https://www.linkedin.com/in/viktor-wallin-2aa173252/?skipRedirect=true" },
     ] satisfies NavLink[],
   },
 };
@@ -87,38 +98,18 @@ export const projects: Project[] = [
     id: "insynskollen",
     name: "Insynskollen",
     description:
-      "I wanted to make insider trading easier to follow. Insynskollen uses AI summaries and push notifications to cut through the noise and help me find interesting companies on the Swedish stock market.",
-    metric: "35+ paying users",
-    layout: "textMedia",
-    icon: {
-      src: insynskollenIcon.src,
-      alt: "Insynskollen app icon",
-      label: "icon",
-      tone: "frost",
-    },
+      "Makes insider trading on the Swedish stock market easier to follow, with AI summaries and push notifications.",
+    featured: true,
+    metric: { value: "35+", label: "paying users" },
+    icon: { src: insynskollenIcon.src, alt: "Insynskollen app icon" },
     screenshots: [
-      {
-        src: insynskollenShot1.src,
-        alt: "Insynskollen App Store screenshot — insider trading feed",
-        label: "screenshot-1",
-        tone: "frost",
-      },
-      {
-        src: insynskollenShot2.src,
-        alt: "Insynskollen App Store screenshot — company analysis",
-        label: "screenshot-2",
-        tone: "frost",
-      },
-      {
-        src: insynskollenShot3.src,
-        alt: "Insynskollen App Store screenshot — favorite companies",
-        label: "screenshot-3",
-        tone: "frost",
-      },
+      { src: insynskollenShot1.src, alt: "Insynskollen App Store screenshot — insider trading feed" },
+      { src: insynskollenShot2.src, alt: "Insynskollen App Store screenshot — company analysis" },
+      { src: insynskollenShot3.src, alt: "Insynskollen App Store screenshot — favorite companies" },
     ],
     stores: [
-      { label: "App Store ↗", href: "https://apps.apple.com/se/app/insynskollen/id6737434122" },
-      { label: "Google Play ↗", href: "https://play.google.com/store/apps/details?id=com.devember.Insynskollen" },
+      { label: "App Store →", href: "https://apps.apple.com/se/app/insynskollen/id6737434122" },
+      { label: "Google Play →", href: "https://play.google.com/store/apps/details?id=com.devember.Insynskollen" },
     ],
     stack: ["Firebase", "React Native", "ChatGPT", "Puppeteer"],
   },
@@ -126,88 +117,35 @@ export const projects: Project[] = [
     id: "kudoo",
     name: "Kudoo WeightLoss",
     description:
-      "I wanted weight loss to feel simpler than counting calories. Kudoo uses a points system, daily step goals and AI food scanning to turn what you eat into points — making progress easier to understand and stick with.",
-    layout: "mediaText",
-    icon: {
-      src: kudooIcon.src,
-      alt: "Kudoo WeightLoss app icon",
-      label: "icon",
-      tone: "green",
-    },
+      "Makes weight loss simpler with a points system, daily step goals and AI food scanning.",
+    icon: { src: kudooIcon.src, alt: "Kudoo WeightLoss app icon" },
     screenshots: [
-      {
-        src: kudooShot1.src,
-        alt: "Kudoo App Store screenshot — daily dashboard",
-        label: "screenshot-1",
-        tone: "green",
-      },
-      {
-        src: kudooShot2.src,
-        alt: "Kudoo App Store screenshot — daily points",
-        label: "screenshot-2",
-        tone: "green",
-      },
-      {
-        src: kudooShot3.src,
-        alt: "Kudoo App Store screenshot — meal photo scan",
-        label: "screenshot-3",
-        tone: "green",
-      },
+      { src: kudooShot1.src, alt: "Kudoo App Store screenshot — daily dashboard" },
+      { src: kudooShot2.src, alt: "Kudoo App Store screenshot — daily points" },
+      { src: kudooShot3.src, alt: "Kudoo App Store screenshot — meal photo scan" },
     ],
-    stores: [
-      {
-        label: "App Store ↗",
-        href: "https://apps.apple.com/se/app/kudoo-weight-loss/id6761327514",
-      },
-    ],
-    stack: ["Claude Design", "OpenArt", "Cursor", "HealthKit", "RevenueCat", "React Native", "Firebase"],
+    stores: [{ label: "App Store →", href: "https://apps.apple.com/se/app/kudoo-weight-loss/id6761327514" }],
+    stack: ["React Native", "Firebase", "HealthKit", "RevenueCat", "Claude Design", "OpenArt", "Cursor"],
   },
   {
     id: "quiz-game",
     name: "Prime Quiz",
-    description:
-      "I just wanted to take an idea all the way to the App Store. It took a while, I learned a lot, and eventually I shipped my first app.",
-    eyebrow: "First app ever shipped",
-    layout: "compact",
-    icon: {
-      src: primeIcon.src,
-      alt: "Quiz game app icon",
-      label: "icon",
-      tone: "ember",
-    },
+    description: "A quiz game, and the first app I took all the way to the App Store.",
+    badge: "First app ever shipped",
+    icon: { src: primeIcon.src, alt: "Quiz game app icon" },
     screenshots: [
-      {
-        src: primeShot1.src,
-        alt: "Quiz game App Store screenshot — music quiz",
-        label: "screenshot-1",
-        tone: "ember",
-      },
-      {
-        src: primeShot2.src,
-        alt: "Quiz game App Store screenshot — geography quiz",
-        label: "screenshot-2",
-        tone: "ember",
-      },
-      {
-        src: primeShot3.src,
-        alt: "Quiz game App Store screenshot — challenge friends",
-        label: "screenshot-3",
-        tone: "ember",
-      },
+      { src: primeShot1.src, alt: "Quiz game App Store screenshot — music quiz" },
+      { src: primeShot2.src, alt: "Quiz game App Store screenshot — geography quiz" },
+      { src: primeShot3.src, alt: "Quiz game App Store screenshot — challenge friends" },
     ],
-    stores: [
-      {
-        label: "App Store ↗",
-        href: "https://apps.apple.com/se/app/prime/id6476791256",
-      },
-    ],
-    stack: ["Firebase", "React Native"],
+    stores: [{ label: "App Store →", href: "https://apps.apple.com/se/app/prime/id6476791256" }],
+    stack: ["React Native", "Firebase"],
   },
 ];
 
 export const techStack: TechGroup[] = [
   {
-    title: "AI & Building",
+    title: "AI & building",
     items: ["Claude / Claude Design", "ChatGPT", "Cursor", "OpenArt"],
   },
   {
@@ -215,11 +153,11 @@ export const techStack: TechGroup[] = [
     items: ["Next.js", "React", "React Native", "JavaScript / TypeScript", "HTML / CSS"],
   },
   {
-    title: "Product & Shipping",
+    title: "Product & shipping",
     items: ["Expo", "App Store Connect", "Google Play Console", "RevenueCat", "Mixpanel"],
   },
   {
-    title: "Design & Workflow",
-    items: ["Figma", "Linear", "GitHub", "GitHub Actions", "Gitlab"],
+    title: "Design & workflow",
+    items: ["Figma", "Linear", "GitHub", "GitHub Actions", "GitLab"],
   },
 ];

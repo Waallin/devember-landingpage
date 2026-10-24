@@ -1,10 +1,6 @@
-export type MediaTone = "frost" | "green" | "ember" | "neutral";
-
 export type MediaAsset = {
-  src?: string;
+  src: string;
   alt: string;
-  label: string;
-  tone: MediaTone;
 };
 
 export type StoreLink = {
@@ -12,19 +8,17 @@ export type StoreLink = {
   href: string;
 };
 
-export type ProjectLayout = "textMedia" | "mediaText" | "compact";
-
 export type Project = {
   id: string;
   name: string;
   description: string;
-  eyebrow?: string;
-  metric?: string;
-  layout: ProjectLayout;
+  featured?: boolean;
+  badge?: string;
+  metric?: { value: string; label: string };
   icon: MediaAsset;
   screenshots: MediaAsset[];
-  stores?: StoreLink[];
-  stack?: string[];
+  stores: StoreLink[];
+  stack: string[];
 };
 
 export type TechGroup = {
@@ -35,6 +29,11 @@ export type TechGroup = {
 export type NavLink = {
   label: string;
   href: string;
+};
+
+export type AnalyticsStep = {
+  label: string;
+  text: string;
 };
 
 export type AboutPortrait = {

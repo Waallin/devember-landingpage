@@ -25,7 +25,7 @@ function Rest({ rest, ember }: { rest: string; ember: boolean }) {
     return null;
   }
 
-  // "Devember." is the only case with an "ember." tail; "Developer"/"Dev" just get frost styling
+  // "Devember." is the only case with an "ember." tail; "Developer"/"Dev" just get the plain ink color
   const tail =
     rest.startsWith("Dev") && rest.length > 3 ? rest.slice(3) : null;
   const emberTail = ember && tail !== null && EMBER_TAIL.startsWith(tail);
@@ -33,17 +33,17 @@ function Rest({ rest, ember }: { rest: string; ember: boolean }) {
   if (emberTail) {
     return (
       <>
-        <span className="text-frost">
+        <span className="text-snow">
           {" "}
           <span className="ember-word">Dev</span>
         </span>
-        {tail ? <span className="ember-word text-ember">{tail}</span> : null}
+        {tail ? <span className="ember-word text-ember-ink">{tail}</span> : null}
       </>
     );
   }
 
   return (
-    <span className="text-frost">
+    <span className="text-snow">
       {" "}
       <span className="ember-word">{rest}</span>
     </span>
@@ -55,7 +55,7 @@ function Cursor({ ember, pulse }: { ember: boolean; pulse?: boolean }) {
     <span
       aria-hidden="true"
       className={`mb-[0.12em] ml-[0.1em] inline-block h-[0.72em] w-[2px] align-middle ${
-        ember ? "bg-ember" : "bg-frost/55"
+        ember ? "bg-ember" : "bg-snow/55"
       } ${pulse ? "hero-cursor-pulse" : ""}`}
     />
   );
@@ -98,21 +98,21 @@ export function HeroHeadline() {
     <>
       <span className="sr-only">Think Devember.</span>
       <span
-        className="hero-static inline-flex flex-wrap items-baseline justify-center gap-x-[0.28em]"
+        className="hero-static inline-flex flex-wrap items-baseline justify-start gap-x-[0.28em]"
         aria-hidden="true"
       >
         <span className="ember-word text-snow">{PREFIX}</span>
         <span className="inline-flex items-baseline">
-          <span className="text-frost">
+          <span className="text-snow">
             {" "}
             <span className="ember-word">Dev</span>
           </span>
-          <span className="ember-word text-ember">ember.</span>
+          <span className="ember-word text-ember-ink">ember.</span>
           <Cursor ember />
         </span>
       </span>
       <span
-        className="hero-animated inline-flex flex-wrap items-baseline justify-center gap-x-[0.28em]"
+        className="hero-animated inline-flex flex-wrap items-baseline justify-start gap-x-[0.28em]"
         aria-hidden="true"
       >
         <span className="inline-grid">
