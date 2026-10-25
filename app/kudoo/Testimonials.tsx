@@ -173,7 +173,7 @@ function Card({ t }: { t: Testimonial }) {
           <Avatar t={t} size={featured ? 52 : 44} />
           <div className="flex flex-col">
             <span className="text-base leading-5 font-semibold">{t.name}</span>
-            <span className={`text-xs leading-4 ${c.meta}`}>Kudoo Beta User</span>
+            <span className={`text-xs leading-4 ${c.meta}`}>Kudoo User</span>
           </div>
         </div>
       </figcaption>
@@ -202,19 +202,6 @@ export function Testimonials() {
             </RevealItem>
           ))}
         </RevealGroup>
-
-        <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-4">
-          <p className="m-0 max-w-[560px] text-sm leading-5 text-[#6B6880]">
-            Fictional example quotes and placeholder portraits for this mockup. They will be replaced with real beta
-            testers, with their permission, before launch.
-          </p>
-          <a
-            href="#download"
-            className="inline-flex min-h-14 items-center rounded-lg bg-[#0B8655] px-6 text-xl leading-[26px] font-bold tracking-[0.1px] text-white transition-colors hover:bg-[#097A4D] hover:text-white"
-          >
-            Start my own story
-          </a>
-        </div>
       </div>
     </section>
   );
