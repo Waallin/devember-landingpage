@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
+import { Tracking } from "./Tracking";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -14,5 +15,10 @@ export const metadata: Metadata = {
 };
 
 export default function KudooLayout({ children }: LayoutProps<"/kudoo">) {
-  return <div className={`${poppins.variable} contents`}>{children}</div>;
+  return (
+    <div className={`${poppins.variable} contents`}>
+      {children}
+      <Tracking />
+    </div>
+  );
 }

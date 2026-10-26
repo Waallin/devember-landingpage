@@ -35,6 +35,9 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          NEXT_PUBLIC_MIXPANEL_TOKEN: 43faf3ab0e5205b70fae39d230cada48
+          NEXT_PUBLIC_TIKTOK_PIXEL_ID: DBFF6PJC77U4PGELB3A0
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
