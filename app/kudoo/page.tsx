@@ -2,6 +2,7 @@ import Image, { type StaticImageData } from "next/image";
 import type { ReactNode } from "react";
 import appMeal from "@/assets/kudoo/app-meal.png";
 import appProgress from "@/assets/kudoo/app-progress.png";
+import appScan from "@/assets/kudoo/app-scan.png";
 import appToday from "@/assets/kudoo/app-today.png";
 import mascotPhone from "@/assets/kudoo/mascot/phone-cheer.png";
 import { Testimonials } from "./Testimonials";
@@ -257,8 +258,8 @@ export default function KudooPage() {
           <SectionIntro title="What does Kudoo include?" text="Four things, and nothing you have to look up." />
           <div className="grid grid-cols-[repeat(auto-fit,minmax(min(260px,100%),1fr))] gap-4">
             <FeatureCard
-              image={appMeal}
-              label="Kudoo showing a scanned burger and fries as 9 points"
+              image={appScan}
+              label="Kudoo camera framing a plate of burger and fries"
               title="Snap a photo"
               text="Point your camera at your meal. We'll turn it into points. Change the portion if it looks off."
             />
