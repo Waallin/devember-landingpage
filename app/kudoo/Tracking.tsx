@@ -153,6 +153,8 @@ mixpanel.init(${JSON.stringify(MIXPANEL_TOKEN)}, {
   record_sessions_percent: 0,
   track_pageview: true,
   persistence: "none",
+  disable_persistence: true,
+  batch_requests: false,
   ip: true,
 });`}
         </Script>
