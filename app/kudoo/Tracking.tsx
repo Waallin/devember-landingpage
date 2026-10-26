@@ -160,35 +160,29 @@ export function Tracking() {
   return (
     <>
       {showBanner && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#3B3551]/55 p-4">
+        <div className="pointer-events-none fixed inset-x-0 bottom-0 z-50 flex justify-center p-3">
           <div
             role="dialog"
-            aria-modal="true"
             aria-label="Cookie settings"
-            className="flex w-full max-w-[480px] flex-col gap-5 rounded-2xl bg-white p-6 font-[family-name:var(--font-poppins),system-ui,sans-serif] text-[#3B3551] shadow-[0_16px_48px_rgba(46,42,79,0.35)]"
+            className="pointer-events-auto flex w-full max-w-[480px] flex-col gap-3 rounded-2xl bg-white p-4 font-[family-name:var(--font-poppins),system-ui,sans-serif] text-[#3B3551] shadow-[0_8px_32px_rgba(46,42,79,0.3)]"
           >
-            <div className="flex flex-col gap-1.5">
-              <p className="m-0 text-lg leading-6 font-bold">
-                Can we use cookies?
-              </p>
-              <p className="m-0 text-base leading-[22px]">
-                We measure how the page performs with Mixpanel, without cookies.
-                TikTok, which we use to measure our ads, only starts if you
-                say yes.
-              </p>
-            </div>
+            <p className="m-0 text-sm leading-5">
+              <span className="font-bold">Can we use cookies?</span> We measure
+              the page with Mixpanel, without cookies. TikTok, which we use to
+              measure our ads, only starts if you say yes.
+            </p>
             <div className="flex gap-3">
               <button
                 type="button"
                 onClick={() => choose("denied")}
-                className="min-h-14 flex-1 cursor-pointer rounded-lg border-2 border-[#3B3551]/25 bg-white px-4 text-base font-bold text-[#3B3551] hover:bg-[#F0F4F6]"
+                className="min-h-11 flex-1 cursor-pointer rounded-lg border-2 border-[#3B3551]/25 bg-white px-4 text-sm font-bold text-[#3B3551] hover:bg-[#F0F4F6]"
               >
                 No thanks
               </button>
               <button
                 type="button"
                 onClick={() => choose("granted")}
-                className="min-h-14 flex-1 cursor-pointer rounded-lg bg-[#0B8655] px-4 text-base font-bold text-white hover:bg-[#097A4D]"
+                className="min-h-11 flex-1 cursor-pointer rounded-lg bg-[#0B8655] px-4 text-sm font-bold text-white hover:bg-[#097A4D]"
               >
                 Yes, accept
               </button>
