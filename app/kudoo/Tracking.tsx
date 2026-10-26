@@ -9,7 +9,11 @@ const TIKTOK_PIXEL_ID = process.env.NEXT_PUBLIC_TIKTOK_PIXEL_ID;
 type Mixpanel = {
   opt_out_tracking?: () => void;
   init: (token: string, config?: Record<string, unknown>) => void;
-  track: (event: string, props?: Record<string, unknown>) => void;
+  track: (
+    event: string,
+    props?: Record<string, unknown>,
+    options?: Record<string, unknown>,
+  ) => void;
 };
 type TikTok = {
   revokeConsent?: () => void;
@@ -42,9 +46,15 @@ function readConsent(): Consent | null {
   }
 }
 
-function track(event: string, props: Record<string, unknown> = {}) {
-  window.mixpanel?.track(event, props);
+function track(
+  event: string,
+  props: Record<string, unknown> = {},
+  options?: Record<string, unknown>,
+) {
+  window.mixpanel?.track(event, props, options);
 }
+
+const SCROLL_STEPS = [25, 50, 75, 100];
 
 export function Tracking() {
   // undefined on the server and during hydration, so nothing flashes on load.
@@ -91,6 +101,57 @@ export function Tracking() {
     };
     document.addEventListener("click", onClick);
     return () => document.removeEventListener("click", onClick);
+  }, []);
+
+  useEffect(() => {
+    const start = Date.now();
+    const sent = new Set<number>();
+    let maxScroll = 0;
+    let left = false;
+
+    const onScroll = () => {
+      const el = document.documentElement;
+      const total = el.scrollHeight;
+      if (total <= 0) return;
+      const pct = Math.min(
+        100,
+        Math.round(((window.scrollY + window.innerHeight) / total) * 100),
+      );
+      maxScroll = Math.max(maxScroll, pct);
+      for (const step of SCROLL_STEPS) {
+        if (pct >= step - 1 && !sent.has(step)) {
+          sent.add(step);
+          track(`Scroll ${step}%`);
+        }
+      }
+    };
+
+    // Fires once, when the visitor leaves or backgrounds the page.
+    const onLeave = () => {
+      if (left) return;
+      left = true;
+      track(
+        "Page Leave",
+        {
+          seconds: Math.round((Date.now() - start) / 1000),
+          max_scroll: maxScroll,
+        },
+        { transport: "sendBeacon", send_immediately: true },
+      );
+    };
+    const onVisibility = () => {
+      if (document.visibilityState === "hidden") onLeave();
+    };
+
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("pagehide", onLeave);
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("pagehide", onLeave);
+      document.removeEventListener("visibilitychange", onVisibility);
+    };
   }, []);
 
   const granted = consent === "granted";
@@ -152,7 +213,6 @@ mixpanel.init(${JSON.stringify(MIXPANEL_TOKEN)}, {
   autocapture: true,
   record_sessions_percent: 0,
   track_pageview: true,
-  persistence: "none",
   disable_persistence: true,
   batch_requests: false,
   ip: true,
