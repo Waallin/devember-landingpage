@@ -1,0 +1,332 @@
+/* Devember redesign (variant 2, Belägg först). Tokens och komponenter från Devember UI, prefix dv-. */
+/* Devember UI — generated from tokens.json */
+.dl-root {
+  --page: #191918;
+  --surface-1: #201f1d;
+  --surface-2: #282622;
+  --surface-3: #312e29;
+  --line: #35312c;
+  --ink: #f4f1ea;
+  --ink-muted: #ada69b;
+  --ink-subtle: #968f83;
+  --ember: #d96c3b;
+  --ember-hover: #e08b5f;
+  --on-ember: #191918;
+  --ember-ink: #e0794a;
+  --ember-soft: #2e1f17;
+  --ember-deep: #3a1f12;
+  --on-deep: #f4f1ea;
+  --moss: #86c79c;
+  --moss-soft: #1b2d22;
+  --alert: #f08a7e;
+  --alert-soft: #3a1d1a;
+  --focus: var(--ember-ink);
+  --glass: #201f1db8;
+  --scrim: #000000a6;
+  --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --shadow-float: 0 16px 48px rgba(0, 0, 0, 0.55);
+}
+.dl-root[data-theme="light"] {
+  --page: #f4f1ea;
+  --surface-1: #fffdfb;
+  --surface-2: #ebe5da;
+  --surface-3: #e0d8ca;
+  --line: #ddd5c8;
+  --ink: #191918;
+  --ink-muted: #5a554d;
+  --ink-subtle: #675f54;
+  --ember: #d96c3b;
+  --ember-hover: #e08b5f;
+  --on-ember: #191918;
+  --ember-ink: #a3431a;
+  --ember-soft: #f9eae1;
+  --ember-deep: #7a3112;
+  --on-deep: #fffdfb;
+  --moss: #2d6a47;
+  --moss-soft: #e2efe6;
+  --alert: #a3281f;
+  --alert-soft: #fbe6e2;
+  --focus: var(--ember-ink);
+  --glass: #fffdfbb8;
+  --scrim: #19191866;
+  --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  --shadow-float: 0 16px 48px rgba(43, 29, 18, 0.18);
+}
+.dl-root {
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-6: 24px;
+  --s-8: 32px;
+  --s-12: 48px;
+  --s-16: 64px;
+  --s-24: 96px;
+  --s-32: 128px;
+  --r-sm: 4px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --r-xl: 24px;
+  --r-pill: 999px;
+  --h-sm: 44px;
+  --h-md: 52px;
+  --container: 1120px;
+  --measure: 640px;
+  --header-h: 64px;
+  --bw-1: 1px;
+  --bw-2: 2px;
+  --focus-offset: 2px;
+  --icon: 24px;
+  --leaf: 28px;
+  --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --font-body: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* Typsnitt via next/font (variabler sätts i layout.tsx) */
+.dl-root {
+  --font-display: var(--font-fraunces), "Iowan Old Style", Georgia, serif;
+  --font-body: var(--font-geist-sans), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* Sidans egna grundregler från designen (specificitet 0,0,1 som i artifakten) */
+:where(.dl-root) a { color: #e0794a; }
+:where(.dl-root) a:hover { color: #f4f1ea; }
+:where(.dl-root) a { transition: none; }
+/* Webbläsarens standardpadding på knappen, som i designen (Tailwind-resetten nollar den) */
+.dl-root .dv-iconbtn { padding: 1px 6px; }
+/* Pilen finns inte i Geists latin-delmängd; designen faller då direkt till systemtypsnittet, inte till next/fonts Arial-reserv */
+.dl-root .dv-arrow { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+
+/* Två layouter, en per bredd: mobil under 960 px */
+.dl-mobile { display: none; }
+@media (max-width: 959px) {
+  .dl-desktop { display: none; }
+  .dl-mobile { display: block; }
+}
+/* Devember UI · bundle.css
+   Typsnitt, värden som tokens.json inte kan bära (fluida textstorlekar, rörelse, z-index),
+   den djupa ytan dv-deep och alla dv-komponenter för devember.se.
+   Färg, avstånd, radier, skugga och storlekar kommer från tokens.json. Prefix: dv-.
+   Bara var(--…) för färg, avstånd och radie. Ingen transition: all. */
+
+ .dl-root {
+  color-scheme: dark;
+  --fs-display: clamp(2.75rem, 1.9rem + 3.6vw, 4.5rem);
+  --fs-h1: clamp(2.25rem, 1.8rem + 2vw, 3.25rem);
+  --fs-h2: clamp(1.875rem, 1.7rem + 0.8vw, 2.25rem);
+  --fs-h3: clamp(1.375rem, 1.3rem + 0.4vw, 1.625rem);
+  --gutter: max(var(--s-4), env(safe-area-inset-left, 0px));
+  --gutter-r: max(var(--s-4), env(safe-area-inset-right, 0px));
+  --section-y: clamp(var(--s-16), 8vw, var(--s-24));
+  --dur-1: 160ms;
+  --dur-2: 240ms;
+  --dur-3: 360ms;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --z-header: 100;
+  --z-menu: 200;
+  --z-toast: 300;
+}
+.dl-root[data-theme="light"] { color-scheme: light; }
+@media (min-width: 960px) { .dl-root { --gutter: var(--s-6); --gutter-r: var(--s-6); } }
+
+/* Djup yta: högst en per sida, för avslutande kontakt. Samma komponenter, nya värden. */
+.dv-deep {
+  --surface-1: rgba(255, 255, 255, 0.06);
+  --surface-2: rgba(255, 255, 255, 0.1);
+  --surface-3: rgba(255, 255, 255, 0.16);
+  --ink: var(--on-deep);
+  --ink-muted: var(--on-deep);
+  --ink-subtle: var(--on-deep);
+  --ember-ink: var(--on-deep);   /* ember-text på ember-deep når bara 1,2–3,8:1 */
+  --focus: var(--on-deep);
+  background: var(--ember-deep);
+  color: var(--on-deep);
+  border-radius: var(--r-xl);
+}
+
+/* ── Bas ─────────────────────────────────────────── */
+.dv-base { font-family: var(--font-body); font-size: 1rem; line-height: 1.625; color: var(--ink); background: var(--page); -webkit-font-smoothing: antialiased; overflow-wrap: break-word; -webkit-tap-highlight-color: transparent; font-optical-sizing: auto; }
+.dv-base *, .dv-base *::before, .dv-base *::after { box-sizing: border-box; }
+.dv-base [hidden] { display: none !important; }
+.dv-base [id] { scroll-margin-top: calc(var(--header-h) + var(--s-4)); }
+:where(.dv-base, .dv-toast) :focus-visible { outline: var(--bw-2) solid var(--focus); outline-offset: var(--focus-offset); border-radius: var(--r-sm); }
+.dv-skip { position: absolute; left: var(--s-4); top: -100px; padding: var(--s-2) var(--s-4); background: var(--ember); color: var(--on-ember); border-radius: var(--r-md); font-weight: 600; z-index: var(--z-menu); }
+.dv-skip:focus { top: var(--s-4); }
+.dv-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ── Typografi ───────────────────────────────────── */
+.dv-display, .dv-h1, .dv-h2, .dv-h3 { font-family: var(--font-display); margin: 0; text-wrap: balance; color: var(--ink); }
+.dv-display { font-size: var(--fs-display); line-height: 1.02; font-weight: 400; letter-spacing: -0.025em; }
+.dv-h1 { font-size: var(--fs-h1); line-height: 1.08; font-weight: 400; letter-spacing: -0.023em; }
+.dv-h2 { font-size: var(--fs-h2); line-height: 1.16; font-weight: 400; letter-spacing: -0.017em; }
+.dv-h3 { font-size: var(--fs-h3); line-height: 1.23; font-weight: 600; letter-spacing: -0.012em; }
+.dv-lead { font-size: 1.1875rem; line-height: 1.58; color: var(--ink-muted); margin: 0; max-width: var(--measure); text-wrap: pretty; }
+.dv-body { font-size: 1rem; line-height: 1.625; margin: 0; max-width: var(--measure); text-wrap: pretty; }
+.dv-small { font-size: 0.875rem; line-height: 1.43; color: var(--ink-muted); margin: 0; }
+.dv-meta { font-family: var(--font-mono); font-size: 0.75rem; line-height: 1.33; font-weight: 500; letter-spacing: 0.05em; color: var(--ink-subtle); margin: 0; }
+.dv-muted { color: var(--ink-muted); }
+.dv-num { font-variant-numeric: tabular-nums; }
+.dv-nowrap { white-space: nowrap; }
+
+/* ── Länk ────────────────────────────────────────── */
+.dv-link { color: var(--ember-ink); font-weight: 600; text-decoration: underline; text-decoration-thickness: var(--bw-1); text-underline-offset: 0.22em; transition: color var(--dur-1) var(--ease); }
+.dv-arrow { display: inline-block; transition: transform var(--dur-2) var(--ease); }
+@media (hover: hover) {
+  .dv-link:hover { color: var(--ink); }
+  a:hover > .dv-arrow, button:hover > .dv-arrow, .dv-app:hover .dv-arrow { transform: translateX(3px); }
+}
+
+/* ── Layout ──────────────────────────────────────── */
+.dv-container { width: 100%; max-width: calc(var(--container) + var(--gutter) + var(--gutter-r)); margin-inline: auto; padding-left: var(--gutter); padding-right: var(--gutter-r); }
+.dv-section { padding-block: var(--section-y); }
+.dv-section--tight { padding-block: var(--s-16); }
+.dv-stack { display: flex; flex-direction: column; gap: var(--gap, var(--s-4)); }
+.dv-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--gap, var(--s-4)); }
+.dv-grid { display: grid; gap: var(--gap, var(--s-6)); grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--min, 280px)), 1fr)); }
+.dv-gap-2 { --gap: var(--s-2); } .dv-gap-3 { --gap: var(--s-3); } .dv-gap-4 { --gap: var(--s-4); } .dv-gap-6 { --gap: var(--s-6); } .dv-gap-8 { --gap: var(--s-8); } .dv-gap-12 { --gap: var(--s-12); }
+
+/* ── Knapp ───────────────────────────────────────── */
+.dv-btn { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: var(--s-2); min-height: var(--h-md); padding: 0 var(--s-6); border: 0; border-radius: var(--r-md); background: var(--ember); color: var(--on-ember); font: 600 1rem/1.25 var(--font-body); text-decoration: none; cursor: pointer; box-shadow: var(--shadow-inset); transition: background-color var(--dur-1) var(--ease), color var(--dur-1) var(--ease), transform var(--dur-1) var(--ease); }
+.dv-btn:active { transform: translateY(1px); }
+.dv-btn--soft { background: var(--surface-2); color: var(--ember-ink); }
+.dv-btn--quiet { background-color: transparent; color: var(--ember-ink); box-shadow: none; padding: 0 var(--s-3); }
+.dv-btn--sm { min-height: var(--h-sm); padding: 0 var(--s-4); font-size: 0.9375rem; }
+.dv-btn--block { width: 100%; }
+@media (hover: hover) {
+  .dv-btn:hover { background: var(--ember-hover); }
+  .dv-btn--soft:hover { background: var(--surface-3); color: var(--ink); }
+  .dv-btn--quiet:hover { background: var(--ember-soft); }
+}
+.dv-btn[aria-busy="true"] { color: transparent; pointer-events: none; }
+.dv-btn[aria-busy="true"]::after { content: ""; position: absolute; inset: 0; margin: auto; width: 18px; height: 18px; border-radius: 50%; border: var(--bw-2) solid var(--on-ember); border-right-color: transparent; animation: dv-spin 700ms linear infinite; }
+.dv-btn--soft[aria-busy="true"]::after, .dv-btn--quiet[aria-busy="true"]::after { border-color: var(--ember-ink); border-right-color: transparent; }
+.dv-btn[disabled], .dv-btn[aria-disabled="true"] { background: var(--surface-2); color: var(--ink-muted); box-shadow: none; cursor: not-allowed; transform: none; }
+@keyframes dv-spin { to { transform: rotate(360deg); } }
+
+/* ── Ikon ────────────────────────────────────────── */
+.dv-icon { width: var(--icon); height: var(--icon); flex: none; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.dv-icon--sm { width: 20px; height: 20px; }
+.dv-iconbtn { display: inline-grid; place-items: center; width: var(--h-sm); height: var(--h-sm); border: 0; border-radius: var(--r-pill); background: var(--surface-2); color: var(--ink); cursor: pointer; transition: background-color var(--dur-1) var(--ease); }
+@media (hover: hover) { .dv-iconbtn:hover { background: var(--surface-3); } }
+
+/* ── Märke ───────────────────────────────────────── */
+.dv-badge { display: inline-flex; align-items: center; gap: var(--s-2); min-height: 28px; padding: 0 var(--s-3); border-radius: var(--r-pill); background: var(--surface-2); color: var(--ink-muted); font: 500 0.75rem/1 var(--font-mono); letter-spacing: 0.04em; white-space: nowrap; }
+.dv-badge--ember { background: var(--ember-soft); color: var(--ember-ink); }
+.dv-badge--moss { background: var(--moss-soft); color: var(--moss); }
+.dv-badge--moss::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+/* ── Kort ────────────────────────────────────────── */
+.dv-card { display: flex; flex-direction: column; gap: var(--s-4); padding: var(--s-6); border-radius: var(--r-lg); background: var(--surface-1); color: var(--ink); box-shadow: var(--shadow-inset); }
+.dv-card--link { text-decoration: none; transition: background-color var(--dur-2) var(--ease); }
+@media (hover: hover) { .dv-card--link:hover { background: var(--surface-2); } }
+
+/* ── Notis och toast ─────────────────────────────── */
+.dv-note { display: flex; gap: var(--s-3); align-items: flex-start; padding: var(--s-4); border-radius: var(--r-md); background: var(--surface-2); color: var(--ink); font-size: 0.9375rem; line-height: 1.5; }
+.dv-note .dv-icon { width: 20px; height: 20px; margin-top: 1px; color: var(--ink-muted); }
+.dv-note--moss { background: var(--moss-soft); } .dv-note--moss .dv-icon { color: var(--moss); }
+.dv-note--alert { background: var(--alert-soft); } .dv-note--alert .dv-icon { color: var(--alert); }
+.dv-toast { display: flex; align-items: center; gap: var(--s-3); max-width: 360px; padding: var(--s-3) var(--s-4); border-radius: var(--r-md); background: var(--surface-2); color: var(--ink); font: 400 0.9375rem/1.4 var(--font-body); box-shadow: var(--shadow-inset), var(--shadow-float); }
+.dv-toast .dv-icon { width: 20px; height: 20px; color: var(--moss); }
+.dv-toast-region { position: fixed; left: 50%; bottom: max(var(--s-6), env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: var(--z-toast); }
+.dv-toast[data-enter] { animation: dv-rise var(--dur-2) var(--ease) both; }
+@keyframes dv-rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+/* ── Laddning ────────────────────────────────────── */
+.dv-skeleton { display: block; border-radius: var(--r-sm); background: var(--surface-2); background-image: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.04), transparent); background-size: 200% 100%; animation: dv-shimmer 1.4s linear infinite; }
+.dl-root[data-theme="light"] .dv-skeleton { background-image: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent); }
+.dv-skeleton--text { height: 1em; } .dv-skeleton--icon { width: 64px; height: 64px; border-radius: var(--r-md); } .dv-skeleton--media { aspect-ratio: 9 / 19.5; border-radius: var(--r-xl); }
+@keyframes dv-shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+
+/* ── Bild ────────────────────────────────────────── */
+.dv-media { margin: 0; display: flex; flex-direction: column; gap: var(--s-2); }
+.dv-media__frame { position: relative; overflow: hidden; border-radius: var(--r-xl); background: var(--surface-2); aspect-ratio: var(--ratio, 3 / 2); }
+.dv-media__frame img, .dv-media__frame video { display: block; width: 100%; height: 100%; object-fit: cover; }
+.dv-media--phone .dv-media__frame { --ratio: 9 / 19.5; }
+.dv-media--portrait .dv-media__frame { --ratio: 4 / 5; }
+.dv-media--square .dv-media__frame { --ratio: 1 / 1; }
+.dv-media__slot { position: absolute; inset: 0; display: grid; place-items: center; padding: var(--s-4); text-align: center; font: 500 0.75rem/1.4 var(--font-mono); letter-spacing: 0.04em; color: var(--ink-subtle); }
+.dv-media__cap { font-size: 0.875rem; line-height: 1.43; color: var(--ink-muted); }
+.dv-shots { display: flex; gap: var(--s-4); overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: var(--s-2); }
+.dv-shots > .dv-media { flex: 0 0 min(200px, 44%); scroll-snap-align: start; }
+
+/* ── Logotyp ─────────────────────────────────────── */
+.dv-logo { display: inline-flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; min-height: var(--h-sm); }
+.dv-logo img { height: var(--leaf); width: auto; display: block; }
+.dv-wordmark { font: 600 1rem/1 var(--font-body); letter-spacing: 0.05em; text-transform: uppercase; }
+
+/* ── Sidhuvud ────────────────────────────────────── */
+.dv-header { position: sticky; top: 0; z-index: var(--z-header); background: var(--glass); -webkit-backdrop-filter: blur(6px) saturate(1.2); backdrop-filter: blur(6px) saturate(1.2); transition: box-shadow var(--dur-2) var(--ease); }
+.dv-header--scrolled { box-shadow: 0 var(--bw-1) 0 var(--line); }
+.dv-header__inner { display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); min-height: var(--header-h); }
+.dv-nav { display: flex; align-items: center; gap: var(--s-2); list-style: none; margin: 0; padding: 0; }
+.dv-nav a { display: inline-flex; align-items: center; min-height: var(--h-sm); padding: 0 var(--s-3); border-radius: var(--r-pill); color: var(--ink-muted); text-decoration: none; font: 400 0.8125rem/1 var(--font-mono); letter-spacing: 0.04em; transition: color var(--dur-1) var(--ease), background-color var(--dur-1) var(--ease); }
+.dv-nav a[aria-current] { color: var(--ink); box-shadow: inset 0 calc(-1 * var(--bw-2)) 0 var(--ember); border-radius: 0; }
+@media (hover: hover) { .dv-nav a:hover { color: var(--ink); background: var(--surface-1); } .dv-nav a[aria-current]:hover { background: transparent; } }
+.dv-menubtn { display: none; }
+@media (max-width: 639px) {
+  .dv-header .dv-nav { display: none; }
+  .dv-menubtn { display: inline-grid; }
+  .dv-header[data-open] .dv-nav { display: flex; position: absolute; left: var(--s-4); right: var(--s-4); top: calc(var(--header-h) - var(--s-2)); flex-direction: column; align-items: stretch; padding: var(--s-2); border-radius: var(--r-lg); background: var(--surface-1); box-shadow: var(--shadow-inset), var(--shadow-float); z-index: var(--z-menu); }
+  .dv-header[data-open] .dv-nav a { min-height: var(--h-md); font-size: 0.9375rem; border-radius: var(--r-md); }
+}
+
+/* ── Sektionshuvud ───────────────────────────────── */
+.dv-sechead { display: flex; flex-direction: column; gap: var(--s-4); margin-bottom: var(--s-12); max-width: 760px; }
+
+/* ── Appkort ─────────────────────────────────────── */
+.dv-app { display: grid; gap: var(--s-6); padding: var(--s-6); border-radius: var(--r-lg); background: var(--surface-1); box-shadow: var(--shadow-inset); color: var(--ink); }
+.dv-app__head { display: flex; align-items: center; gap: var(--s-4); }
+.dv-app__icon { width: 64px; height: 64px; border-radius: var(--r-md); flex: none; display: block; background: var(--surface-2); }
+.dv-app__body { display: flex; flex-direction: column; gap: var(--s-3); }
+.dv-app__stack { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-3); font-size: 0.875rem; line-height: 1.43; color: var(--ink-muted); list-style: none; margin: 0; padding: 0; }
+.dv-app__stack li:not(:last-child)::after { content: "·"; margin-left: var(--s-3); color: var(--ink-subtle); }
+.dv-app__links { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+@media (min-width: 960px) {
+  .dv-app--featured { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); align-items: center; gap: var(--s-12); padding: var(--s-12); }
+}
+
+/* ── Butikslänk ──────────────────────────────────── */
+.dv-store { display: inline-flex; align-items: center; gap: var(--s-2); min-height: var(--h-md); padding: 0 var(--s-4) 0 var(--s-3); border-radius: var(--r-md); background: var(--surface-2); color: var(--ink); text-decoration: none; font: 600 0.9375rem/1.2 var(--font-body); box-shadow: var(--shadow-inset); transition: background-color var(--dur-1) var(--ease); }
+.dv-store .dv-icon { width: 20px; height: 20px; color: var(--ink-muted); }
+.dv-store .dv-arrow { color: var(--ember-ink); }
+@media (hover: hover) { .dv-store:hover { background: var(--surface-3); } }
+
+/* ── Siffra ──────────────────────────────────────── */
+.dv-stat { display: flex; flex-direction: column; gap: var(--s-1); margin: 0; }
+.dv-stat__value { font: 400 var(--fs-h1)/1 var(--font-display); letter-spacing: -0.02em; color: var(--ember-ink); font-variant-numeric: tabular-nums; }
+.dv-stat__label { font-size: 1rem; line-height: 1.5; color: var(--ink); }
+.dv-stat__source { font: 500 0.75rem/1.33 var(--font-mono); letter-spacing: 0.05em; color: var(--ink-subtle); }
+.dv-stats { display: grid; gap: var(--s-8); grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+
+/* ── Arbetssätt ──────────────────────────────────── */
+.dv-process { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-2); grid-template-columns: repeat(5, minmax(0, 1fr)); counter-reset: dv-step; }
+.dv-process li { counter-increment: dv-step; display: flex; flex-direction: column; gap: var(--s-2); padding: var(--s-6) var(--s-4); border-radius: var(--r-lg); background: var(--surface-1); box-shadow: var(--shadow-inset); }
+.dv-process li::before { content: counter(dv-step, decimal-leading-zero); font: 500 0.75rem/1.33 var(--font-mono); letter-spacing: 0.05em; color: var(--ember-ink); }
+.dv-process__name { font: 600 1.25rem/1.3 var(--font-display); }
+.dv-process__desc { font-size: 0.875rem; line-height: 1.43; color: var(--ink-muted); }
+.dv-process__loop { margin-top: var(--s-4); font: 500 0.75rem/1.33 var(--font-mono); letter-spacing: 0.05em; color: var(--ink-subtle); }
+@media (max-width: 959px) { .dv-process { grid-template-columns: minmax(0, 1fr); } .dv-process li { flex-direction: row; align-items: baseline; gap: var(--s-4); padding: var(--s-4); } .dv-process__desc { margin-left: auto; text-align: right; } }
+@media (max-width: 479px) { .dv-process__desc { display: none; } }
+
+/* ── Verktyg ─────────────────────────────────────── */
+.dv-tech { display: grid; gap: var(--s-8); grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin: 0; }
+.dv-tech__group { display: flex; flex-direction: column; gap: var(--s-3); }
+.dv-tech__group dt { font: 500 0.75rem/1.33 var(--font-mono); letter-spacing: 0.05em; color: var(--ink-subtle); }
+.dv-tech__group dd { margin: 0; display: flex; flex-wrap: wrap; gap: var(--s-2); }
+.dv-tech__item { display: inline-flex; align-items: center; min-height: 32px; padding: 0 var(--s-3); border-radius: var(--r-pill); background: var(--surface-1); color: var(--ink); font-size: 0.875rem; box-shadow: var(--shadow-inset); }
+
+/* ── Sidfot ──────────────────────────────────────── */
+.dv-footer { padding-block: var(--s-8); }
+.dv-footer__inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s-4); font: 500 0.75rem/1.33 var(--font-mono); letter-spacing: 0.05em; color: var(--ink-subtle); }
+.dv-footer a { color: var(--ink-muted); text-decoration: none; }
+@media (hover: hover) { .dv-footer a:hover { color: var(--ink); } }
+
+/* ── Reducerad rörelse: förflyttning bort, färgbyten kvar ── */
+@media (prefers-reduced-motion: reduce) {
+  .dv-btn, .dv-arrow, .dv-toast[data-enter] { transform: none !important; animation: none; }
+  .dv-skeleton { animation: none; }
+  .dv-btn[aria-busy="true"]::after { animation-duration: 1.6s; }
+}
+
