@@ -11,6 +11,7 @@ import kudooStoreMeal from "@/assets/kudoo/kudoo-store-meal.png";
 import kudooStoreProgress from "@/assets/kudoo/kudoo-store-progress.png";
 import primeIcon from "@/assets/prime/icon.png";
 import { projects, site } from "@/lib/content";
+import { MobileHeader } from "./MobileHeader";
 
 const links = {
   insynskollenApp: projects[0].stores[0].href,
@@ -89,7 +90,7 @@ export function DesktopLanding() {
                   paying users, Insynskollen
                 </dt>
                 <dd className="dv-stat__source" style={{ margin: "0" }} data-spec="start:e032">
-                  RevenueCat · [MÅNAD ÅR] · platshållare
+                  RevenueCat · November 2026
                 </dd>
               </div>
               <div className="dv-stat">
@@ -97,10 +98,10 @@ export function DesktopLanding() {
                   3
                 </dd>
                 <dt className="dv-stat__label" data-spec="start:e035">
-                  apps live in the App Store
+                  apps live in the App Store and Google Play
                 </dt>
                 <dd className="dv-stat__source" style={{ margin: "0" }} data-spec="start:e036">
-                  App Store · [MÅNAD ÅR]
+                  App Store · Google Play · November 2026
                 </dd>
               </div>
             </dl>
@@ -198,7 +199,7 @@ export function DesktopLanding() {
                 02 · More apps
               </p>
               <h2 className="dv-h2" data-spec="start:e082">
-                Two more in the App Store.
+                Two more apps live in the stores.
               </h2>
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: "24px" }}>
@@ -458,21 +459,7 @@ export function DesktopLanding() {
 export function MobileLanding() {
   return (
     <div className="dv-base" style={{ minHeight: "100%" }} data-spec="start:e176">
-      <header className="dv-header" data-spec="start:e177">
-        <div className="dv-container dv-header__inner">
-          <a className="dv-logo" href="#top-m" aria-label="Devember, till toppen" data-spec="start:e179">
-            <Image src={logo} alt="" width={31} height={28} data-spec="start:e180" />
-            <span className="dv-wordmark" data-spec="start:e181">
-              Devember
-            </span>
-          </a>
-          <button className="dv-iconbtn" type="button" aria-label="Öppna meny" aria-expanded="false" data-spec="start:e182">
-            <svg className="dv-icon dv-icon--sm" viewBox="0 0 24 24" aria-hidden="true" data-spec="start:e183">
-              <path d="M4 7h16M4 12h16M4 17h16" />
-            </svg>
-          </button>
-        </div>
-      </header>
+      <MobileHeader />
       <main id="top-m">
         <section style={{ padding: "48px 0 56px" }}>
           <div className="dv-container" style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
@@ -491,7 +478,7 @@ export function MobileLanding() {
                   paying users
                 </span>
                 <span className="dv-stat__source" data-spec="start:e193">
-                  Insynskollen · [MÅNAD ÅR]
+                  Insynskollen · November 2026
                 </span>
               </div>
               <div className="dv-stat">
@@ -502,7 +489,7 @@ export function MobileLanding() {
                   apps live
                 </span>
                 <span className="dv-stat__source" data-spec="start:e197">
-                  App Store · [MÅNAD ÅR]
+                  App Store · Google Play · Nov 2026
                 </span>
               </div>
             </div>
