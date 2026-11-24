@@ -1,9 +1,10 @@
 // The site is a static export on GitHub Pages, so there is no server of our own.
 // Applications are posted to a hosted form endpoint that emails them to us.
-// FORM_ENDPOINT and FORM_ACCESS_KEY are set once the form service is chosen.
+// Web3Forms form "Kudoo ambassadors" on viktor@devember.se. The access key is
+// public by design (it only lets you send to that inbox), so it lives in code.
 
 export const FORM_ENDPOINT = "https://api.web3forms.com/submit";
-export const FORM_ACCESS_KEY = process.env.NEXT_PUBLIC_AMBASSADOR_FORM_KEY ?? "";
+export const FORM_ACCESS_KEY = "c21f2d21-73e3-494c-95a3-73accd7638ea";
 
 export type Application = {
   handle: string;
