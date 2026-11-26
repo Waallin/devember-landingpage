@@ -375,6 +375,8 @@ function QuestionView({
 }) {
   const cat = categories[c];
   const item = cat.questions[q];
+  // Karriärfrågor skrivs som "Klubb → Klubb → Klubb" och visas som en rad klubbrutor.
+  const career = item.question.includes(" → ") ? item.question.split(" → ") : null;
   const primary = useRef<HTMLButtonElement>(null);
   const closeRef = useRef(onClose);
 
@@ -413,9 +415,24 @@ function QuestionView({
         </div>
 
         <div className="dv-stack dv-gap-8 fbq-overlay__body">
-          <h2 id="fbq-q" className="dv-h1 fbq-question">
-            {item.question}
-          </h2>
+          {career ? (
+            <div className="dv-stack dv-gap-4">
+              <h2 id="fbq-q" className="dv-sr">
+                Vem är spelaren? Karriär: {career.join(", ")}
+              </h2>
+              <ol className="fbq-career" aria-hidden="true">
+                {career.map((club, n) => (
+                  <li key={n} className="fbq-career__step">
+                    <span className="fbq-career__club">{club}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          ) : (
+            <h2 id="fbq-q" className="dv-h1 fbq-question">
+              {item.question}
+            </h2>
+          )}
 
           {!revealed ? (
             <div className="dv-stack dv-gap-6">
