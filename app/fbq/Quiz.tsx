@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import logo from "@/app/icon.png";
 import { categories } from "./questions";
 
-type Mark = 1 | -1;
+type Mark = 1;
 type Results = Record<string, Record<number, Mark>>;
 type State = {
   phase: "setup" | "play";
@@ -18,6 +18,7 @@ type State = {
 const STORAGE_KEY = "fbq-state-v1";
 const MIN_TEAMS = 2;
 const MAX_TEAMS = 6;
+const ANSWER_SECONDS = 10;
 const TOTAL = categories.reduce((n, c) => n + c.questions.length, 0);
 const initial: State = { phase: "setup", teams: ["Lag 1", "Lag 2"], played: [], results: {} };
 
@@ -48,7 +49,7 @@ function scoreOf(state: State, team: number) {
   categories.forEach((cat, c) =>
     cat.questions.forEach((q, i) => {
       const mark = state.results[keyOf(c, i)]?.[team];
-      if (mark) total += mark * q.value;
+      if (mark === 1) total += q.value; // inga minuspoäng
     }),
   );
   return total;
@@ -240,7 +241,7 @@ function Setup({ teams, onChange, onStart }: { teams: string[]; onChange: (t: st
         <p className="dv-meta">Fotbollsquiz · 5 kategorier · 25 frågor</p>
         <h1 className="dv-display">Fotbollsquiz</h1>
         <p className="dv-lead">
-          Välj en ruta, läs frågan högt och svara muntligt. Den som leder spelet visar svaret och delar ut poängen: 100 för de lätta, 500 för de svåra.
+          Välj en ruta, läs frågan högt och svara muntligt. Laget har 10 sekunder på sig, sedan får alla svara. Den som leder spelet visar svaret och delar ut poängen: 100 för de lätta, 500 för de svåra.
         </p>
       </div>
 
@@ -288,6 +289,66 @@ function Setup({ teams, onChange, onStart }: { teams: string[]; onChange: (t: st
         </button>
       </div>
     </form>
+  );
+}
+
+function Countdown({ seconds }: { seconds: number }) {
+  const total = seconds * 1000;
+  const [left, setLeft] = useState(total);
+  const [run, setRun] = useState(0);
+
+  useEffect(() => {
+    const start = performance.now();
+    const id = window.setInterval(() => {
+      const l = Math.max(0, total - (performance.now() - start));
+      setLeft(l);
+      if (l === 0) window.clearInterval(id);
+    }, 100);
+    return () => window.clearInterval(id);
+  }, [run, total]);
+
+  const restart = () => {
+    setLeft(total);
+    setRun((r) => r + 1);
+  };
+
+  const shown = Math.ceil(left / 1000);
+  const over = left === 0;
+  const r = 28;
+  const circ = 2 * Math.PI * r;
+
+  return (
+    <div className="fbq-timer" data-state={over ? "over" : shown <= 3 ? "low" : undefined}>
+      <div className="fbq-timer__ring" role="timer" aria-label={over ? "Tiden är ute" : `${shown} sekunder kvar`}>
+        <svg viewBox="0 0 64 64" aria-hidden="true">
+          <circle className="fbq-timer__track" cx="32" cy="32" r={r} />
+          <circle
+            className="fbq-timer__bar"
+            cx="32"
+            cy="32"
+            r={r}
+            strokeDasharray={circ}
+            strokeDashoffset={circ * (1 - left / total)}
+          />
+        </svg>
+        <span className="fbq-timer__num dv-num" aria-hidden="true">
+          {shown}
+        </span>
+      </div>
+      <div className="fbq-timer__text" role="status">
+        {over ? (
+          <>
+            <p className="dv-h3">Tiden är ute!</p>
+            <p className="dv-small">Nu får alla lag svara.</p>
+          </>
+        ) : (
+          <p className="dv-small">{seconds} sekunder att svara</p>
+        )}
+      </div>
+      <button type="button" className="dv-btn dv-btn--quiet dv-btn--sm fbq-timer__restart" onClick={restart}>
+        Starta om
+      </button>
+    </div>
   );
 }
 
@@ -355,10 +416,13 @@ function QuestionView({
           </h2>
 
           {!revealed ? (
-            <div>
-              <button ref={primary} type="button" className="dv-btn" onClick={onReveal}>
-                Visa svar
-              </button>
+            <div className="dv-stack dv-gap-6">
+              <Countdown seconds={ANSWER_SECONDS} />
+              <div>
+                <button ref={primary} type="button" className="dv-btn" onClick={onReveal}>
+                  Visa svar
+                </button>
+              </div>
             </div>
           ) : (
             <div className="dv-stack dv-gap-6" aria-live="polite">
@@ -369,7 +433,7 @@ function QuestionView({
               </div>
 
               <div className="dv-stack dv-gap-3">
-                <p className="dv-meta">Vem svarade?</p>
+                <p className="dv-meta">Vem svarade rätt?</p>
                 <ul className="fbq-marks">
                   {teams.map((t, i) => (
                     <li key={i} className="fbq-mark">
@@ -377,9 +441,6 @@ function QuestionView({
                       <span className="fbq-mark__btns">
                         <button type="button" className="fbq-toggle" data-tone="moss" aria-pressed={marks[i] === 1} onClick={() => onMark(i, 1)}>
                           Rätt +{item.value}
-                        </button>
-                        <button type="button" className="fbq-toggle" data-tone="alert" aria-pressed={marks[i] === -1} onClick={() => onMark(i, -1)}>
-                          Fel −{item.value}
                         </button>
                       </span>
                     </li>
