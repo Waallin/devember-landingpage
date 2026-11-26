@@ -27,7 +27,7 @@
 .fbq-final { gap: var(--s-4); }
 
 /* ── Brädet: fem kolumner på bred skärm, en rad per kategori på mobil ── */
-.fbq-board { display: grid; gap: var(--s-3); grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.fbq-board { display: grid; gap: var(--s-3); grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); }
 .fbq-cat { display: grid; gap: var(--s-3); grid-template-rows: auto repeat(5, 1fr); }
 .fbq-cat__name {
   display: grid; place-items: center; min-height: 72px; margin: 0; padding: var(--s-3);
@@ -52,7 +52,7 @@
 
 @media (max-width: 639px) {
   .fbq-main { padding-top: var(--s-8); }
-  .fbq-board { grid-template-columns: minmax(0, 1fr); gap: var(--s-4); }
+  .fbq-board { grid-auto-flow: row; grid-template-columns: minmax(0, 1fr); gap: var(--s-4); }
   .fbq-cat { grid-template-rows: none; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--s-2); }
   .fbq-cat__name { grid-column: 1 / -1; min-height: 0; place-items: start; padding: 0; background: none; text-align: left; font-size: 1.125rem; }
   .fbq-cell { min-height: 60px; padding: var(--s-1); }

@@ -217,4 +217,48 @@ export const categories: Category[] = [
       },
     ],
   },
+  {
+    name: "Vem är spelaren?",
+    questions: [
+      {
+        value: 100,
+        question:
+          "Norsk anfallare som gjorde 36 mål i sin första Premier League-säsong, 2022/23, vilket är rekord för en säsong.",
+        answer: "Erling Haaland",
+        extra: "Han slog Alan Shearers och Andy Coles gemensamma rekord på 34 mål.",
+        source: "https://olympics.com/en/news/most-goals-scored-in-a-premier-league-season-football",
+      },
+      {
+        value: 200,
+        question:
+          "Svensk anfallare som vann Guldskon som Europas bästa ligamålskytt med Celtic säsongen 2000/01 och senare vann Champions League med Barcelona.",
+        answer: "Henrik Larsson",
+        extra: "35 ligamål och 53 mål totalt för Celtic den säsongen.",
+        source: "https://en.wikipedia.org/wiki/Henrik_Larsson",
+      },
+      {
+        value: 300,
+        question:
+          "Kroatisk mittfältare som vann Ballon d’Or 2018 och därmed bröt Messis och Ronaldos tioåriga dominans.",
+        answer: "Luka Modrić",
+        extra: "Samma år vann han Champions League med Real Madrid och Guldbollen som VM:s bästa spelare.",
+        source: "https://www.nbcsports.com/soccer/news/ballon-dor-modric-ends-messi-ronaldos-10-year-duopoly",
+      },
+      {
+        value: 400,
+        question: "Sovjetisk målvakt, kallad ”Svarta spindeln”, som är den enda målvakten som vunnit Ballon d’Or (1963).",
+        answer: "Lev Jasjin",
+        extra: "Priset för årets bästa målvakt, Jasjin-trofén, är uppkallat efter honom.",
+        source: "https://en.wikipedia.org/wiki/1963_Ballon_d%27Or",
+      },
+      {
+        value: 500,
+        question:
+          "Svensk anfallare som är AC Milans bästa målskytt genom tiderna och vann Serie A:s skytteliga fem gånger.",
+        answer: "Gunnar Nordahl",
+        extra: "210 ligamål för Milan. En tredjedel av trion Gre-No-Li.",
+        source: "https://en.wikipedia.org/wiki/Gunnar_Nordahl",
+      },
+    ],
+  },
 ];

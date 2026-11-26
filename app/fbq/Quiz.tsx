@@ -238,7 +238,9 @@ function Setup({ teams, onChange, onStart }: { teams: string[]; onChange: (t: st
       }}
     >
       <div className="dv-stack dv-gap-4">
-        <p className="dv-meta">Fotbollsquiz · 5 kategorier · 25 frågor</p>
+        <p className="dv-meta">
+          Fotbollsquiz · {categories.length} kategorier · {TOTAL} frågor
+        </p>
         <h1 className="dv-display">Fotbollsquiz</h1>
         <p className="dv-lead">
           Välj en ruta, läs frågan högt och svara muntligt. Laget har 10 sekunder på sig, sedan får alla svara. Rätt svar ger poäng, fel svar ger minus. Den som leder spelet visar svaret och delar ut poängen: 100 för de lätta, 500 för de svåra.
