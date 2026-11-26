@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import logo from "@/app/icon.png";
 import { categories } from "./questions";
 
-type Mark = 1;
+type Mark = 1 | -1;
 type Results = Record<string, Record<number, Mark>>;
 type State = {
   phase: "setup" | "play";
@@ -49,7 +49,7 @@ function scoreOf(state: State, team: number) {
   categories.forEach((cat, c) =>
     cat.questions.forEach((q, i) => {
       const mark = state.results[keyOf(c, i)]?.[team];
-      if (mark === 1) total += q.value; // inga minuspoäng
+      if (mark) total += mark * q.value;
     }),
   );
   return total;
@@ -157,7 +157,7 @@ export function Quiz() {
               {state.teams.map((t, i) => (
                 <li key={i} className="fbq-score" data-leading={finished && scores[i] === best ? "" : undefined}>
                   <span className="fbq-score__name">{t}</span>
-                  <span className="fbq-score__value dv-num">{scores[i]}</span>
+                  <span className="fbq-score__value dv-num">{scores[i] < 0 ? `−${-scores[i]}` : scores[i]}</span>
                 </li>
               ))}
             </ol>
@@ -241,7 +241,7 @@ function Setup({ teams, onChange, onStart }: { teams: string[]; onChange: (t: st
         <p className="dv-meta">Fotbollsquiz · 5 kategorier · 25 frågor</p>
         <h1 className="dv-display">Fotbollsquiz</h1>
         <p className="dv-lead">
-          Välj en ruta, läs frågan högt och svara muntligt. Laget har 10 sekunder på sig, sedan får alla svara. Den som leder spelet visar svaret och delar ut poängen: 100 för de lätta, 500 för de svåra.
+          Välj en ruta, läs frågan högt och svara muntligt. Laget har 10 sekunder på sig, sedan får alla svara. Rätt svar ger poäng, fel svar ger minus. Den som leder spelet visar svaret och delar ut poängen: 100 för de lätta, 500 för de svåra.
         </p>
       </div>
 
@@ -433,7 +433,7 @@ function QuestionView({
               </div>
 
               <div className="dv-stack dv-gap-3">
-                <p className="dv-meta">Vem svarade rätt?</p>
+                <p className="dv-meta">Vem svarade?</p>
                 <ul className="fbq-marks">
                   {teams.map((t, i) => (
                     <li key={i} className="fbq-mark">
@@ -441,6 +441,9 @@ function QuestionView({
                       <span className="fbq-mark__btns">
                         <button type="button" className="fbq-toggle" data-tone="moss" aria-pressed={marks[i] === 1} onClick={() => onMark(i, 1)}>
                           Rätt +{item.value}
+                        </button>
+                        <button type="button" className="fbq-toggle" data-tone="alert" aria-pressed={marks[i] === -1} onClick={() => onMark(i, -1)}>
+                          Fel −{item.value}
                         </button>
                       </span>
                     </li>
