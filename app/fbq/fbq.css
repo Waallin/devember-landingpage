@@ -1,0 +1,120 @@
+/* Fotbollsquiz (/fbq). Byggt på Devember UI: bara tokens via var(--…), komponenterna dv-* från devember.css. Prefix: fbq-. */
+
+.fbq { min-height: 100vh; display: flex; flex-direction: column; }
+.fbq-main { flex: 1; padding-top: var(--s-12); padding-bottom: var(--s-16); }
+.fbq-setup { max-width: var(--measure); }
+
+/* ── Lag ─────────────────────────────────────────── */
+.fbq-teams { border: 0; margin: 0; padding: 0; min-width: 0; }
+.fbq-teams legend { padding: 0; margin-bottom: var(--s-3); }
+.fbq-team { display: flex; align-items: center; gap: var(--s-2); }
+.fbq-input {
+  flex: 1; min-width: 0; min-height: var(--h-md); padding: 0 var(--s-4);
+  border: var(--bw-1) solid var(--line); border-radius: var(--r-md);
+  background: var(--surface-1); color: var(--ink); font: 400 1rem/1.25 var(--font-body);
+  box-shadow: var(--shadow-inset);
+  transition: border-color var(--dur-1) var(--ease);
+}
+.fbq-input:focus-visible { border-color: var(--focus); }
+
+/* ── Poängtavla ──────────────────────────────────── */
+.fbq-scores { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-3); grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+.fbq-score { display: flex; flex-direction: column; gap: var(--s-1); padding: var(--s-4); border-radius: var(--r-lg); background: var(--surface-1); box-shadow: var(--shadow-inset); }
+.fbq-score[data-leading] { background: var(--ember-soft); }
+.fbq-score__name { font: 500 0.75rem/1.33 var(--font-mono); letter-spacing: 0.05em; color: var(--ink-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fbq-score__value { font: 400 var(--fs-h2)/1 var(--font-display); letter-spacing: -0.02em; color: var(--ember-ink); }
+
+.fbq-final { gap: var(--s-4); }
+
+/* ── Brädet: fem kolumner på bred skärm, en rad per kategori på mobil ── */
+.fbq-board { display: grid; gap: var(--s-3); grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); }
+.fbq-cat { display: grid; gap: var(--s-3); grid-template-rows: auto repeat(5, 1fr); }
+.fbq-cat__name {
+  display: grid; place-items: center; min-height: 72px; margin: 0; padding: var(--s-3);
+  border-radius: var(--r-md); background: var(--surface-2); text-align: center;
+  font: 600 1.0625rem/1.25 var(--font-display); letter-spacing: -0.01em; color: var(--ink); text-wrap: balance;
+}
+.fbq-cell {
+  position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--s-1);
+  min-height: 88px; padding: var(--s-2); border: 0; border-radius: var(--r-md);
+  background: var(--surface-1); color: var(--ember-ink); box-shadow: var(--shadow-inset); cursor: pointer;
+  transition: background-color var(--dur-1) var(--ease), color var(--dur-1) var(--ease), transform var(--dur-1) var(--ease);
+}
+.fbq-cell__value { font: 400 var(--fs-h2)/1 var(--font-display); letter-spacing: -0.02em; }
+.fbq-cell__taker { max-width: 100%; font: 500 0.6875rem/1.2 var(--font-mono); letter-spacing: 0.04em; color: var(--ink-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fbq-cell:active { transform: translateY(1px); }
+.fbq-cell[data-played] { background: transparent; box-shadow: inset 0 0 0 var(--bw-1) var(--line); color: var(--ink-subtle); }
+.fbq-cell[data-played] .fbq-cell__value { text-decoration: line-through; text-decoration-thickness: var(--bw-1); }
+@media (hover: hover) {
+  .fbq-cell:hover { background: var(--ember-soft); }
+  .fbq-cell[data-played]:hover { background: var(--surface-1); }
+}
+
+@media (max-width: 639px) {
+  .fbq-main { padding-top: var(--s-8); }
+  .fbq-board { grid-auto-flow: row; grid-template-columns: minmax(0, 1fr); gap: var(--s-4); }
+  .fbq-cat { grid-template-rows: none; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--s-2); }
+  .fbq-cat__name { grid-column: 1 / -1; min-height: 0; place-items: start; padding: 0; background: none; text-align: left; font-size: 1.125rem; }
+  .fbq-cell { min-height: 60px; padding: var(--s-1); }
+  .fbq-cell__value { font-size: 1.25rem; }
+  .fbq-cell__taker { font-size: 0.625rem; }
+}
+
+/* ── Frågevy ─────────────────────────────────────── */
+.fbq-overlay { position: fixed; inset: 0; z-index: var(--z-menu); overflow-y: auto; background: var(--page); animation: dv-rise var(--dur-2) var(--ease) both; }
+.fbq-overlay__inner { min-height: 100%; display: flex; flex-direction: column; gap: var(--s-8); padding-top: var(--s-4); padding-bottom: max(var(--s-6), env(safe-area-inset-bottom, 0px)); max-width: calc(880px + var(--gutter) + var(--gutter-r)); }
+.fbq-overlay__top { display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); min-height: var(--header-h); }
+.fbq-overlay__body { flex: 1; justify-content: center; }
+.fbq-question { max-width: none; }
+.fbq-answer { color: var(--ember-ink); }
+.fbq-overlay__foot { display: flex; justify-content: flex-end; }
+
+.fbq-marks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--s-2); }
+.fbq-mark { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s-2) var(--s-4); padding: var(--s-2) var(--s-2) var(--s-2) var(--s-4); border-radius: var(--r-md); background: var(--surface-1); box-shadow: var(--shadow-inset); }
+.fbq-mark__name { font-weight: 600; min-width: 0; overflow-wrap: anywhere; }
+.fbq-mark__btns { display: flex; gap: var(--s-2); }
+.fbq-toggle {
+  min-height: var(--h-sm); padding: 0 var(--s-4); border: 0; border-radius: var(--r-md);
+  background: var(--surface-2); color: var(--ink-muted); font: 600 0.9375rem/1 var(--font-body); font-variant-numeric: tabular-nums; cursor: pointer;
+  transition: background-color var(--dur-1) var(--ease), color var(--dur-1) var(--ease);
+}
+.fbq-toggle[data-tone="moss"][aria-pressed="true"] { background: var(--moss-soft); color: var(--moss); box-shadow: inset 0 0 0 var(--bw-1) var(--moss); }
+.fbq-toggle[data-tone="alert"][aria-pressed="true"] { background: var(--alert-soft); color: var(--alert); box-shadow: inset 0 0 0 var(--bw-1) var(--alert); }
+@media (hover: hover) { .fbq-toggle:hover { background: var(--surface-3); color: var(--ink); } }
+
+@media (max-width: 639px) {
+  .fbq-overlay__foot .dv-btn { width: 100%; }
+  .fbq-mark__btns { width: 100%; }
+  .fbq-toggle { flex: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fbq-overlay { animation: none; }
+  .fbq-cell { transform: none !important; }
+}
+
+/* ── Nedräknare (10 s per fråga) ─────────────────── */
+.fbq-timer { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-4); padding: var(--s-4); border-radius: var(--r-lg); background: var(--surface-1); box-shadow: var(--shadow-inset); max-width: 560px; transition: background-color var(--dur-2) var(--ease); }
+.fbq-timer__ring { position: relative; width: 72px; height: 72px; flex: none; }
+.fbq-timer__ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.fbq-timer__track { fill: none; stroke: var(--surface-3); stroke-width: 5; }
+.fbq-timer__bar { fill: none; stroke: var(--ember); stroke-width: 5; stroke-linecap: round; transition: stroke-dashoffset 100ms linear, stroke var(--dur-1) var(--ease); }
+.fbq-timer__num { position: absolute; inset: 0; display: grid; place-items: center; font: 400 1.75rem/1 var(--font-display); color: var(--ink); }
+.fbq-timer__text { flex: 1; min-width: 140px; display: flex; flex-direction: column; gap: var(--s-1); }
+.fbq-timer__restart { margin-left: auto; }
+.fbq-timer[data-state="low"] .fbq-timer__num { color: var(--ember-ink); animation: fbq-pulse 1s var(--ease) infinite; }
+.fbq-timer[data-state="over"] { background: var(--alert-soft); }
+.fbq-timer[data-state="over"] .fbq-timer__bar { stroke: var(--alert); }
+.fbq-timer[data-state="over"] .fbq-timer__num { color: var(--alert); }
+@keyframes fbq-pulse { 50% { transform: scale(1.12); } }
+@media (prefers-reduced-motion: reduce) {
+  .fbq-timer[data-state="low"] .fbq-timer__num { animation: none; }
+  .fbq-timer__bar { transition: none; }
+}
+
+/* ── Karriärväg (Vem är spelaren?) ───────────────── */
+.fbq-career { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3) var(--s-2); }
+.fbq-career__step { display: inline-flex; align-items: center; gap: var(--s-2); }
+.fbq-career__step:not(:last-child)::after { content: "→"; font: 400 1.25rem/1 system-ui, -apple-system, "Segoe UI", sans-serif; color: var(--ember-ink); }
+.fbq-career__club { padding: var(--s-2) var(--s-4); border-radius: var(--r-md); background: var(--surface-1); box-shadow: var(--shadow-inset); font: 400 var(--fs-h3)/1.2 var(--font-display); letter-spacing: -0.01em; color: var(--ink); }
+@media (max-width: 639px) { .fbq-career__club { padding: var(--s-1) var(--s-3); font-size: 1.125rem; } }
