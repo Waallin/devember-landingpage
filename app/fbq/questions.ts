@@ -1,5 +1,6 @@
 // Frågorna till fotbollsquizet på /fbq. Varje svar är kontrollerat mot källan i `source` (läget i november 2026).
 // I "Vem är spelaren?" är frågan spelarens seniorklubbar i ordning, enligt Wikipedias faktaruta.
+// Alla spelare där spelar i Premier League, La Liga eller Allsvenskan (november 2026).
 
 export type Question = {
   value: 100 | 200 | 300 | 400 | 500;
@@ -221,38 +222,38 @@ export const categories: Category[] = [
     questions: [
       {
         value: 100,
-        question: "Torino → Pisa → Ravenna → Venezia → Atalanta → Juventus → Atlético Madrid → Lazio → Inter → AC Milan → Monaco → Sampdoria → Atalanta → Fiorentina → Atalanta",
-        answer: "Christian Vieri",
-        extra: "Tre sejourer i Atalanta. Sex säsonger i Inter, 1999–2005.",
-        source: "https://en.wikipedia.org/wiki/Christian_Vieri",
+        question: "Manchester United → Preston (lån) → Sunderland (lån) → Arsenal → Watford → Brighton → Chelsea",
+        answer: "Danny Welbeck",
+        extra: "Engelsman. Gick från Brighton till Chelsea i augusti 2026, 35 år gammal.",
+        source: "https://www.skysports.com/football/news/11668/13568440/chelsea-transfer-news-danny-welbeck-completes-move-to-stamford-bridge-from-brighton-for-undisclosed-fee",
       },
       {
         value: 200,
-        question: "Hertha BSC → Tottenham → Borussia Dortmund (lån) → Portsmouth → Genoa → AC Milan (lån) → AC Milan → Schalke 04 → AC Milan → Las Palmas → Eintracht Frankfurt → Sassuolo → Barcelona (lån) → Fiorentina → Beşiktaş (lån) → Monza → Hertha BSC",
-        answer: "Kevin-Prince Boateng",
-        extra: "Ghanansk landslagsspelare. Tre perioder i AC Milan och två i Hertha.",
-        source: "https://en.wikipedia.org/wiki/Kevin-Prince_Boateng",
+        question: "Athletic Bilbao → Ponferradina (lån) → Valladolid (lån) → Athletic Bilbao → Chelsea → Real Madrid (lån) → Bournemouth (lån) → Arsenal",
+        answer: "Kepa Arrizabalaga",
+        extra: "Spansk målvakt. Spelar i Arsenal sedan 2025.",
+        source: "https://en.wikipedia.org/wiki/Kepa_Arrizabalaga",
       },
       {
         value: 300,
-        question: "Zamalek → Gent → Ajax → Celta Vigo (lån) → Marseille → Roma → Tottenham (lån) → Tottenham → Middlesbrough → Wigan (lån) → Zamalek (lån) → West Ham (lån) → Ajax → Zamalek → Barnsley",
-        answer: "Mido",
-        extra: "Egyptisk anfallare (Ahmed Hossam). Tre perioder i Zamalek och två i Ajax.",
-        source: "https://en.wikipedia.org/wiki/Mido_(footballer)",
+        question: "Tenerife → Newcastle → Leicester → Real Betis (lån) → Real Betis → Villarreal",
+        answer: "Ayoze Pérez",
+        extra: "Spansk anfallare. Spelar i Villarreal sedan 2024.",
+        source: "https://en.wikipedia.org/wiki/Ayoze_P%C3%A9rez",
       },
       {
         value: 400,
-        question: "Radnički Pirot → Loznica → Smederevo → Partizan → PSV → Chelsea → Atlético Madrid → Fenerbahçe → PSG (lån) → PSG → Zenit (lån) → South China → BATE Borisov → South China",
-        answer: "Mateja Kežman",
-        extra: "Serbisk anfallare. Fyra säsonger i PSV, 2000–2004.",
-        source: "https://en.wikipedia.org/wiki/Mateja_Ke%C5%BEman",
+        question: "Rosenborg → Bodø/Glimt (lån) → Groningen → Midtjylland → Crystal Palace → Gent (lån) → Trabzonspor (lån) → RB Leipzig → Real Sociedad (lån) → Villarreal → Atlético Madrid",
+        answer: "Alexander Sørloth",
+        extra: "Norsk anfallare. Spelar i Atlético Madrid sedan 2024.",
+        source: "https://en.wikipedia.org/wiki/Alexander_S%C3%B8rloth",
       },
       {
         value: 500,
-        question: "Liverpool → Le Havre (lån) → Liverpool → Blackburn (lån) → Recreativo → Atlético Madrid → Sporting CP → Zaragoza (lån) → Saint-Étienne (lån) → Rostov → Chicago Fire → Lausanne-Sport → Dundee United → Chainat Hornbill → Saint-Pierroise",
-        answer: "Florent Sinama-Pongolle",
-        extra: "Fransk anfallare som spelade i England, Spanien, Portugal, Ryssland, USA, Schweiz, Skottland och Thailand.",
-        source: "https://en.wikipedia.org/wiki/Florent_Sinama_Pongolle",
+        question: "Cambridge → Hamilton Wanderers → Waikato → West Bromwich → Barnsley (lån) → Brighton (lån) → Birmingham (lån) → Bristol City (lån) → Millwall (lån) → Leicester (lån) → Leicester → Ipswich (lån) → Leeds → Burnley → Newcastle → Nottingham Forest (lån) → Nottingham Forest",
+        answer: "Chris Wood",
+        extra: "Nyzeeländsk anfallare. Spelar i Nottingham Forest sedan 2023.",
+        source: "https://en.wikipedia.org/wiki/Chris_Wood_(footballer,_born_1991)",
       },
     ],
   },
